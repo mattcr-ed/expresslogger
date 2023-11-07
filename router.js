@@ -2,6 +2,7 @@
 
 //Set required exports
 const express = require('express');
+const config = require('./config.json');
 const fs = require('fs');
 const router = express.Router();
 
@@ -18,7 +19,7 @@ router.post('/', function(req, res) {
         //Build the string to log
         let toLog = "\n" + date.toISOString() + "\n" + req.query.data + "\n";
         //Append to logging file, catch errors
-        fs.appendFile("/etc/server.log", toLog, (err) => {
+        fs.appendFile(config.lSaveLoc, toLog, (err) => {
             if (err) {
                 console.log(err);
             }

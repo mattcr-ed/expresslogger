@@ -5,6 +5,7 @@
 //Set required exports
 const express = require('express');
 const router = require('./router.js');
+const config = require('./config.json');
 
 //App boilerplayer
 const app = express();
@@ -12,7 +13,7 @@ app.use(express.json());
 app.use('/', router);
 
 //Set a port, 2500 not really used so borrowing it
-const PORT = process.env.PORT || 2500;
+const PORT = process.env.PORT || config.lPort;
 
 //Start the app
 app.listen(PORT, () => {
