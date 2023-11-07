@@ -30,4 +30,22 @@ router.post('/', function(req, res) {
     }
 });
 
+router.post('/logaction', function(req, res) {
+    if (!req.query.id || !req.query.message || !req.query.severity) {
+        res.status(400);
+        res.json({ message: "Bad Request!" });
+    } else {
+        let date = new Date();
+        let toLog = "\n" + date.toISOString() + " Process: " + req.query.id + " Severity: " + req.query.severity + "\n";
+        fs.appendFile(config.lSaveLoc, toLog, (err) => {
+            if (err) { console.log(err) };
+        })
+        fs.appendFile(config.lSaveLoc, req.query.message, (err) => {
+            if (err) { console.log(err) };
+        });
+        res.json({ message: "Success!" });
+        res.status(200);
+    }
+});
+
 module.exports = router;
